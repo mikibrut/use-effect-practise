@@ -7,15 +7,42 @@ export default function Counter() {
 
   // First iteration
 
+const handleIncrease = () => {
+  setCount(prev => prev +1)
+}
+
+const handleDecrease = () => {
+  setCount(prev => prev -1)
+}
   // Second and Fourth iteration
 
+useEffect(() => {
+ setCount(Math.floor(Math.random()*10))
+
+ return () => {
+  setCount(0)
+  setDynamicClass("text")
+  console.log('All clean here. Count:', count, 'Class:', dynamicClass);
+ }
+}, [])
+
   // Third iteration
+
+useEffect(() => {
+if(count <= 0){
+  setDynamicClass('red');
+}else if(count > 0 && count <= 5){
+  setDynamicClass('orange');
+}else if(count > 5){
+  setDynamicClass('green');
+}
+}, [count])
 
   return (
     <div>
       <p>Counter: <span className={dynamicClass}>{count}</span></p>
-      <button>+ Increase</button>
-      <button>- Decrease</button>
+      <button onClick = {handleIncrease}>+ Increase</button>
+      <button onClick = {handleDecrease}>- Decrease</button>
     </div>
   )
 }
